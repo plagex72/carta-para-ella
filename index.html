@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti 💙</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #4b2e2e, #1e3a8a);
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    .carta {
+        width: 300px;
+        height: 200px;
+        background: #8b5e3c;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        transition: transform 0.5s;
+        position: absolute;
+        z-index: 2;
+    }
+
+    .carta:hover {
+        transform: scale(1.05);
+    }
+
+    .mensaje {
+        position: absolute;
+        width: 320px;
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        opacity: 0;
+        transform: scale(0);
+        transition: 0.6s;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        z-index: 3;
+    }
+
+    .mensaje.activo {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .lluvia {
+        position: absolute;
+        top: -100px;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .flor {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        animation: caer linear infinite;
+    }
+
+    .petalo {
+        width: 25px;
+        height: 25px;
+        background: radial-gradient(circle, #60a5fa, #1e40af);
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    .petalo:nth-child(1) { top: 0; left: 12px; }
+    .petalo:nth-child(2) { top: 12px; left: 0; }
+    .petalo:nth-child(3) { top: 12px; left: 25px; }
+    .petalo:nth-child(4) { top: 25px; left: 12px; }
+
+    .centro {
+        width: 12px;
+        height: 12px;
+        background: yellow;
+        border-radius: 50%;
+        position: absolute;
+        top: 18px;
+        left: 18px;
+    }
+
+    @keyframes caer {
+        0% { transform: translateY(-100px); opacity: 0; }
+        10% { opacity: 1; }
+        100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    h2 { color: #1e3a8a; }
+    p { color: #4b2e2e; }
+</style>
+</head>
+<body>
+
+<div class="carta" onclick="abrirCarta()">
+    <h2>💌 Ábreme</h2>
+</div>
+
+<div class="mensaje" id="mensaje">
+    <h2>Para Ti 💙</h2>
+    <p>
+        Quería regalarte un pequeño detalle. Ya bañate pls  y espero que estes bien hoy.
+        
+        Gracias por existir ✨
+    </p>
+</div>
+
+<div class="lluvia" id="lluvia"></div>
+
+<script>
+function crearFlor() {
+    const flor = document.createElement("div");
+    flor.classList.add("flor");
+
+    // posición aleatoria
+    flor.style.left = Math.random() * 100 + "vw";
+
+    // duración aleatoria
+    flor.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    flor.innerHTML = `
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="centro"></div>
+    `;
+
+    document.getElementById("lluvia").appendChild(flor);
+
+    setTimeout(() => {
+        flor.remove();
+    }, 6000);
+}
+
+function abrirCarta() {
+    document.getElementById("mensaje").classList.add("activo");
+
+    // lluvia constante de flores
+    setInterval(crearFlor, 200);
+}
+</script>
+
+</body>
+</html>
